@@ -93,8 +93,8 @@
 
 <script setup lang="ts">
 import MdEditor from "@/components/MdEditor.vue";
-import { onMounted, reactive, ref } from "vue";
-import { QuestionAddRequest, QuestionControllerService } from "@/generated";
+import { onMounted, ref } from "vue";
+import { QuestionControllerService } from "@/generated";
 import message from "@arco-design/web-vue/es/message";
 import { useRoute } from "vue-router";
 

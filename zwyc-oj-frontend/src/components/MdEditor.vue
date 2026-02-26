@@ -11,7 +11,7 @@
 import gfm from "@bytemd/plugin-gfm";
 import highlight from "@bytemd/plugin-highlight";
 import { Editor } from "@bytemd/vue-next";
-import { withDefaults, defineProps } from "vue";
+import { defineProps, withDefaults } from "vue";
 
 /**
  * 定义组件属性类型
