@@ -8,10 +8,7 @@ import com.zwyc.zwycoj.judge.codesandbox.CodeSandboxFactory;
 import com.zwyc.zwycoj.judge.codesandbox.CodeSandboxProxy;
 import com.zwyc.zwycoj.judge.codesandbox.model.ExecuteCodeRequest;
 import com.zwyc.zwycoj.judge.codesandbox.model.ExecuteCodeResponse;
-import com.zwyc.zwycoj.judge.strategy.DefaultJudgeStrategy;
-import com.zwyc.zwycoj.judge.strategy.JavaLanguageJudgeStrategy;
 import com.zwyc.zwycoj.judge.strategy.JudgeContext;
-import com.zwyc.zwycoj.judge.strategy.JudgeStrategy;
 import com.zwyc.zwycoj.model.dto.question.JudgeCase;
 import com.zwyc.zwycoj.model.dto.questionsubmit.JudgeInfo;
 import com.zwyc.zwycoj.model.entity.Question;
@@ -34,6 +31,9 @@ public class JudgeServiceImpl implements JudgeService {
 
     @Resource
     private QuestionSubmitService questionSubmitService;
+
+    @Resource
+    private JudgeManager judgeManager;
 
     @Value("${codesandbox.type:example}")
     private String type;
@@ -86,12 +86,8 @@ public class JudgeServiceImpl implements JudgeService {
         judgeContext.setJudgeCaseList(judgeCaseList);
         judgeContext.setQuestion(question);
         judgeContext.setQuestionSubmit(questionSubmit);
-        JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
-        if (language.equals("java")) {
-            judgeStrategy = new JavaLanguageJudgeStrategy();
-        }
-        JudgeInfo judgeInfo = judgeStrategy.doJudge(judgeContext);
-        // 修改数据库中的判题结果
+        JudgeInfo judgeInfo = judgeManager.doJudge(judgeContext);
+        // 6) 修改数据库中的判题结果
         questionSubmitUpdate = new QuestionSubmit();
         questionSubmitUpdate.setId(questionSubmitId);
         questionSubmitUpdate.setStatus(QuestionSubmitStatusEnum.SUCCEED.getValue());

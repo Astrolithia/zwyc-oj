@@ -6,10 +6,12 @@ import com.zwyc.zwycoj.judge.strategy.JudgeContext;
 import com.zwyc.zwycoj.judge.strategy.JudgeStrategy;
 import com.zwyc.zwycoj.model.dto.questionsubmit.JudgeInfo;
 import com.zwyc.zwycoj.model.entity.QuestionSubmit;
+import org.springframework.stereotype.Service;
 
 /**
  * 判题管理（简化调用）
  */
+@Service
 public class JudgeManager {
 
     /**
@@ -22,7 +24,7 @@ public class JudgeManager {
         QuestionSubmit questionSubmit = judgeContext.getQuestionSubmit();
         String language = questionSubmit.getLanguage();
         JudgeStrategy judgeStrategy = new DefaultJudgeStrategy();
-        if (language.equals("java")) {
+        if ("java".equals(language)) {
             judgeStrategy = new JavaLanguageJudgeStrategy();
         }
         return judgeStrategy.doJudge(judgeContext);
