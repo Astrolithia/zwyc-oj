@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public enum JudgeInfoMessageEnum {
 
-    Accepted("成功", "Accepted"),
+    ACCEPTED("成功", "Accepted"),
     WRONG_ANSWER("Wrong Answer", "答案错误"),
     COMPILE_ERROR("Compile Error", "编译错误"),
     MEMORY_LIMIT_EXCEEDED("Memory Limit Exceeded", "内存溢出"),
